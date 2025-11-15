@@ -1,6 +1,19 @@
 class ApiConstants {
   static const String apiBaseUrl = 'http://admin.sadiqeen.com/api/';
   static const String login = 'login';
+  static const String categories = 'categories';
+
+  // Dynamic endpoint for subcategories
+  static String subCategories(int categoryId, {String? search}) {
+    String url = 'categories/$categoryId/subcategories';
+
+    if (search != null && search.isNotEmpty) {
+      final encodedSearch = Uri.encodeQueryComponent(search);
+      url += '?search=$encodedSearch';
+    }
+
+    return url;
+  }
 }
 
 class ApiErrors {

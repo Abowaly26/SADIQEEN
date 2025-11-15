@@ -5,20 +5,27 @@ class CreateNewAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
+        const Text(
+          "ليس لديك حساب ؟",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
         TextButton(
           onPressed: () {},
           child: const Text(
             "انشئ حساب جديد",
             style: TextStyle(
               color: Color(0xFF1A237E),
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
             ),
           ),
         ),
-        const Text("ليس لديك حساب ؟", style: TextStyle(color: Colors.grey)),
       ],
     );
   }

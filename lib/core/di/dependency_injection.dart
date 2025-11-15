@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sadiqeen/features/home/data/repo/categories_repo.dart';
+import 'package:sadiqeen/features/home/data/repo/sub_categories_repository.dart';
+import 'package:sadiqeen/features/home/logic/categories_cubit/categories_cubit.dart';
+import 'package:sadiqeen/features/home/logic/sub_categories_cubit/sub_categories_cubit.dart';
 
 import '../../features/login/data/repo/login_repo.dart';
 import '../../features/login/logic/cubit/cubit/login_cubit.dart';
@@ -15,4 +19,14 @@ Future<void> setupGetit() async {
 
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerLazySingleton<LoginCubit>(() => LoginCubit(getIt()));
+
+  getIt.registerLazySingleton<CategoriesRepository>(
+    () => CategoriesRepository(getIt()),
+  );
+  getIt.registerLazySingleton<CategoriesCubit>(() => CategoriesCubit(getIt()));
+
+  getIt.registerLazySingleton<SubCategoriesRepository>(
+    () => SubCategoriesRepository(apiService: getIt()),
+  );
+  getIt.registerLazySingleton<SubCategoriesCubit>(() => SubCategoriesCubit(getIt()));
 }

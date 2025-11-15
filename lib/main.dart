@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-import 'core/di/dependency_injection.dart';
-import 'features/login/view/login_view.dart';
+import 'package:sadiqeen/core/di/dependency_injection.dart';
+import 'package:sadiqeen/core/routing/app_router.dart';
+import 'package:sadiqeen/core/routing/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,13 +16,14 @@ Future<void> main() async {
       fallbackLocale: const Locale('ar'),
       startLocale: const Locale('ar'),
 
-      child: const MyApp(),
+      child: SADIQEEN(router: AppRouter()),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SADIQEEN extends StatelessWidget {
+  const SADIQEEN({super.key, required this.router});
+  final AppRouter router;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +33,8 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: LoginPage(),
+      onGenerateRoute: router.generateRoute,
+      initialRoute: Routes.loginScreen,
     );
   }
 }

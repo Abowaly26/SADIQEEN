@@ -13,7 +13,7 @@ class LoginRepo {
   ) async {
     try {
       print('🟢 LoginRepo: Calling API...');
-      final response = await _apiService.login(loginRequestBody.toJson());
+      final response = await _apiService.login(loginRequestBody);
       print('🟢 LoginRepo: Success! Response: $response');
       return ApiResult.success(response);
     } catch (e) {
