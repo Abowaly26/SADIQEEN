@@ -2,6 +2,7 @@ class ApiConstants {
   static const String apiBaseUrl = 'http://admin.sadiqeen.com/api/';
   static const String login = 'login';
   static const String categories = 'categories';
+  static const String register = 'register';
 
   // Dynamic endpoint for subcategories
   static String subCategories(int categoryId, {String? search}) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/routing/routes.dart';
+
 class CreateNewAccount extends StatelessWidget {
   const CreateNewAccount({super.key});
 
@@ -16,7 +18,9 @@ class CreateNewAccount extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(Routes.signupScreen);
+          },
           child: const Text(
             "انشئ حساب جديد",
             style: TextStyle(

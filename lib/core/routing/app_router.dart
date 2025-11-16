@@ -5,6 +5,8 @@ import 'package:sadiqeen/core/routing/routes.dart';
 import 'package:sadiqeen/features/home/logic/categories_cubit/categories_cubit.dart';
 import 'package:sadiqeen/features/home/logic/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:sadiqeen/features/home/view/home_view.dart';
+import 'package:sadiqeen/features/signup/logic/register_cubit.dart';
+import 'package:sadiqeen/features/signup/view/register_view.dart';
 
 import '../../features/login/logic/cubit/cubit/login_cubit.dart';
 import '../../features/login/view/login_view.dart';
@@ -21,17 +23,24 @@ class AppRouter {
           ),
         );
       case Routes.homeScreen:
-        return MaterialPageRoute(builder: (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => getIt<SubCategoriesCubit>(),
-            ),
-            BlocProvider(
-              create: (context) => getIt<CategoriesCubit>(),
-            ),
-          ],
-          child: HomeView(),
-        ));
+        return MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt<SubCategoriesCubit>()),
+              BlocProvider(create: (context) => getIt<CategoriesCubit>()),
+            ],
+            child: HomeView(),
+          ),
+        );
+
+      case Routes.signupScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<RegisterCubit>(),
+            child: RegisterView(),
+          ),
+        );
+
 
       default:
         return MaterialPageRoute(

@@ -28,6 +28,14 @@ class PhoneField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: 'رقم الهاتف',
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFF1A237E), width: 2),
+        ),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 16,
           horizontal: 12,
