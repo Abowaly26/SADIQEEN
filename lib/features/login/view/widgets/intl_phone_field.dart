@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
+
+import '../../../../core/theming/app_colors.dart';
 
 class PhoneField extends StatelessWidget {
   const PhoneField({
@@ -9,24 +14,32 @@ class PhoneField extends StatelessWidget {
     required this.phoneController,
     required this.onCountryChanged,
     required this.onChanged,
+    this.inputFormatters,
+    this.validator,
   });
   final TextEditingController phoneController;
   final Function(Country)? onCountryChanged;
   final Function(PhoneNumber)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+ final FutureOr<String?> Function(PhoneNumber?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
+      onChanged: onChanged,
       controller: phoneController,
+      validator: validator,
       initialCountryCode: 'SA',
       dropdownIcon: const Icon(Icons.keyboard_arrow_down),
       style: const TextStyle(fontSize: 16),
       flagsButtonPadding: const EdgeInsets.symmetric(horizontal: 8),
       textAlign: TextAlign.right,
-
+      inputFormatters: inputFormatters,
       onCountryChanged: onCountryChanged,
       decoration: InputDecoration(
-        labelText: 'رقم الهاتف',
+        hintText: 'رقم الهاتف',
+        hintStyle: TextStyle(color: ColorsManager.lightGray),
+
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -41,13 +54,8 @@ class PhoneField extends StatelessWidget {
           horizontal: 12,
         ),
       ),
-      onChanged: onChanged,
-      validator: (value) {
-        if (value == null || value.number.isEmpty) {
-          return "الرجاء إدخال رقم الهاتف";
-        }
-        return null;
-      },
+     
+      
     );
   }
 }

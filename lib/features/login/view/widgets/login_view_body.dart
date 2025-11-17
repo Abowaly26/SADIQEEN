@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:sadiqeen/core/routing/routes.dart';
 import 'package:sadiqeen/features/login/logic/cubit/cubit/login_cubit.dart';
-import 'package:sadiqeen/features/login/view/widgets/create_new_account.dart';
+import 'package:sadiqeen/core/widgets/custom_new_account.dart.dart';
 import 'package:sadiqeen/features/login/view/widgets/intl_phone_field.dart';
 import 'package:sadiqeen/features/login/view/widgets/password_text_field.dart';
 
@@ -149,7 +150,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: CreateNewAccount(),
+                    child: CreateNewAccount(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.registerScreen);
+                      },
+                      topText: "ليس لديك حساب؟",
+                      buttonText: "إنشاء حساب",
+                    ),
                   ),
                 ],
               ),

@@ -33,7 +33,7 @@ class AppRouter {
           ),
         );
 
-      case Routes.signupScreen:
+      case Routes.registerScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<RegisterCubit>(),
@@ -43,8 +43,8 @@ class AppRouter {
 
 
       default:
-        return MaterialPageRoute(
-          builder: (context) => Scaffold(
+        return MaterialPageRoute(  
+            builder: (context) => Scaffold(
             body: Center(child: Text('No route defined for ${setteing.name}')),
           ),
         );

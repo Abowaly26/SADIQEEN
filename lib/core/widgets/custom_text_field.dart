@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import 'package:sadiqeen/core/theming/app_colors.dart';
-import 'package:sadiqeen/core/theming/styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
- 
     this.icon,
     required this.hint,
     this.onSaved,
@@ -15,8 +13,10 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.obscureText = false,
     this.suffixIcon,
+    this.prefixIcon,
+    this.inputFormatters,
   });
- 
+
   final String? icon;
   final String hint;
   final TextInputType textInputType;
@@ -25,6 +25,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,13 @@ class CustomTextField extends StatelessWidget {
       keyboardType: textInputType,
       onSaved: onSaved,
       validator: validator,
+      inputFormatters: inputFormatters,
+
       decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: TextStyle(color: ColorsManager.lightGray),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -44,17 +52,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Color(0xFF1A237E), width: 2),
         ),
-        prefixIcon: icon != null
-            ? Padding(
-                padding: EdgeInsets.all(12),
-                child: SvgPicture.asset(icon!, width: 24, height: 24),
-              )
-            : null,
-        hintText: hint,
-        hintStyle: TextStyle(color: ColorsManager.lightGray),
-        suffixIcon: suffixIcon,
       ),
     );
   }
 }
-

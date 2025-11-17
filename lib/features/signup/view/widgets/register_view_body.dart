@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sadiqeen/core/routing/routes.dart';
 import 'package:sadiqeen/features/signup/data/models/register_request_model.dart';
 import 'package:sadiqeen/features/signup/logic/register_cubit.dart';
 import 'package:sadiqeen/features/signup/logic/register_state.dart';
+import 'package:sadiqeen/features/signup/view/widgets/register_bloc_listener.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_new_account.dart.dart';
 import '../../../../core/widgets/custom_text_field.dart';
-import '../../../../core/widgets/custom_password_text_field.dart';
 import '../../../../core/utils/app_validation.dart';
 import '../../../login/view/widgets/intl_phone_field.dart';
 import '../../../../core/widgets/custom_snack_bar.dart';
@@ -22,7 +26,8 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
@@ -55,35 +60,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterCubit, RegisterState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          success: (data) {
-            showCustomSnackBar(
-              context: context,
-              message: data.message,
-              backgroundColor: Colors.green,
-              icon: Icons.check_circle,
-              duration: const Duration(seconds: 3),
-            );
-          },
-          error: (error) {
-            showCustomSnackBar(
-              context: context,
-              message: error,
-              backgroundColor: Colors.red,
-              icon: Icons.error,
-              duration: const Duration(seconds: 3),
-            );
-          },
-        );
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: RegisterBlocListner(
               child: Form(
                 key: formKey,
                 child: Column(
@@ -97,13 +80,24 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             validator: AppValidation.validateUserName,
                             hint: 'الاسم الأول',
                             textInputType: TextInputType.name,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z\u0600-\u06FF ]'),
+                              ),
+                            ],
                           ),
                         ),
+
                         const SizedBox(width: 12),
                         Expanded(
                           child: CustomTextField(
                             controller: lastNameController,
                             validator: AppValidation.validateUserName,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z\u0600-\u06FF ]'),
+                              ),
+                            ],
                             hint: 'الاسم الأخير',
                             textInputType: TextInputType.name,
                           ),
@@ -113,7 +107,11 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                     const SizedBox(height: 20),
                     // Phone Field
                     PhoneField(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       phoneController: phoneController,
+                      validator: (value) {
+                        return AppValidation.validatePhoneNumber(value!.number);
+                      },
                       onCountryChanged: (country) {
                         setState(() {
                           selectedDialCode = country.dialCode;
@@ -125,62 +123,80 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                     ),
                     const SizedBox(height: 20),
                     // Password Fields
-                    CustomPasswordTextField(
+                    CustomTextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                          RegExp(r'[\u0600-\u06FF]'),
+                        ),
+                      ],
                       controller: passwordController,
-                      obscurePassword: obscurePassword,
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
-                      labelText: 'كلمة المرور',
+                      obscureText: obscurePassword,
+                      // inputFormatters:
                       validator: AppValidation.validatePassword,
+                      hint: 'كلمة المرور',
+                      textInputType: TextInputType.visiblePassword,
+
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            obscurePassword = !obscurePassword;
+                          });
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
-                    CustomPasswordTextField(
+                    CustomTextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                          RegExp(r'[\u0600-\u06FF]'),
+                        ),
+                      ],
+                      textInputType: TextInputType.visiblePassword,
+                      // inputFormatters:
                       controller: confirmPasswordController,
-                      obscurePassword: obscureConfirmPassword,
-                      onPressed: () {
-                        setState(() {
-                          obscureConfirmPassword = !obscureConfirmPassword;
-                        });
-                      },
-                      labelText: 'تأكيد كلمة المرور',
+                      obscureText: obscureConfirmPassword,
+                      hint: 'تأكيد كلمة المرور',
+
                       validator: (value) {
                         return AppValidation.validateConfirmPassword(
-                            value, passwordController.text);
+                          value,
+                          passwordController.text,
+                        );
                       },
+
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureConfirmPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            obscureConfirmPassword = !obscureConfirmPassword;
+                          });
+                        },
+                      ),
                     ),
                     const SizedBox(height: 30),
+
                     // Submit Button
                     BlocBuilder<RegisterCubit, RegisterState>(
                       builder: (context, state) {
                         final isLoading = state.maybeWhen(
-                            loading: () => true, orElse: () => false);
-                        return SizedBox(
-                          width: double.infinity,
-                          height: 60,
-                          child: ElevatedButton(
-                            onPressed: isLoading ? null : handleSignUp,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1A237E),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: isLoading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : const Text(
-                                    "انشئ حساب جديد",
-                                    style: TextStyle(
-                                      color: Colors.yellow,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                          ),
+                          loading: () => true,
+                          orElse: () => false,
+                        );
+                        return CustomButton(
+                          isLoading: isLoading,
+                          onPressed: handleSignUp,
+                          text: 'انشئ حساب جديد',
                         );
                       },
                     ),
@@ -188,30 +204,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                     // Login redirect
                     Align(
                       alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          const Text(
-                            "لديك حساب بالفعل؟",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text(
-                              "تسجيل الدخول",
-                              style: TextStyle(
-                                color: Color(0xFF1A237E),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ],
+
+                      child: CreateNewAccount(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        topText: "لديك حساب بالفعل؟",
+                        buttonText: "تسجيل الدخول",
                       ),
                     ),
                   ],

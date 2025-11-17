@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/routing/routes.dart';
 
 class CreateNewAccount extends StatelessWidget {
-  const CreateNewAccount({super.key});
+  const CreateNewAccount({super.key, required this.topText, required this.buttonText, required this.onPressed});
+  final String topText;
+  final String buttonText;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "ليس لديك حساب ؟",
+        Text(
+          topText,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 18,
@@ -18,11 +20,9 @@ class CreateNewAccount extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(Routes.signupScreen);
-          },
-          child: const Text(
-            "انشئ حساب جديد",
+          onPressed: onPressed,
+          child: Text(
+            buttonText,
             style: TextStyle(
               color: Color(0xFF1A237E),
               fontWeight: FontWeight.w600,
