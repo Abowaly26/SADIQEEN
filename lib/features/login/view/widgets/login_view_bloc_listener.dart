@@ -6,8 +6,8 @@ import 'package:sadiqeen/features/login/logic/cubit/cubit/login_cubit.dart';
 import 'package:sadiqeen/features/login/logic/cubit/cubit/login_state.dart';
 import 'package:sadiqeen/features/login/view/widgets/login_view_body.dart';
 
-class LoginViewBlocConsumer extends StatelessWidget {
-  const LoginViewBlocConsumer({super.key});
+class LoginViewBlocListener extends StatelessWidget {
+  const LoginViewBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {

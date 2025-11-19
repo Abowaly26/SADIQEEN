@@ -5,8 +5,9 @@ import 'package:sadiqeen/core/routing/routes.dart';
 import 'package:sadiqeen/features/home/logic/categories_cubit/categories_cubit.dart';
 import 'package:sadiqeen/features/home/logic/sub_categories_cubit/sub_categories_cubit.dart';
 import 'package:sadiqeen/features/home/view/home_view.dart';
-import 'package:sadiqeen/features/signup/logic/register_cubit.dart';
-import 'package:sadiqeen/features/signup/view/register_view.dart';
+import 'package:sadiqeen/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:sadiqeen/features/register/logic/register_cubit.dart';
+import 'package:sadiqeen/features/register/view/register_view.dart';
 
 import '../../features/login/logic/cubit/cubit/login_cubit.dart';
 import '../../features/login/view/login_view.dart';
@@ -24,12 +25,12 @@ class AppRouter {
         );
       case Routes.homeScreen:
         return MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => getIt<SubCategoriesCubit>()),
-              BlocProvider(create: (context) => getIt<CategoriesCubit>()),
-            ],
-            child: HomeView(),
+          builder: (context) => BlocProvider.value(
+            value: getIt<CategoriesCubit>(),
+            child: BlocProvider.value(
+              value: getIt<SubCategoriesCubit>(),
+              child: HomeView(),
+            ),
           ),
         );
 
@@ -41,10 +42,12 @@ class AppRouter {
           ),
         );
 
+      case Routes.onboardingScreen:
+        return MaterialPageRoute(builder: (context) => OnboardingView());
 
       default:
-        return MaterialPageRoute(  
-            builder: (context) => Scaffold(
+        return MaterialPageRoute(
+          builder: (context) => Scaffold(
             body: Center(child: Text('No route defined for ${setteing.name}')),
           ),
         );

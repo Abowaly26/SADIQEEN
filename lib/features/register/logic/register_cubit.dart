@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadiqeen/core/networking/api_result.dart';
-import 'package:sadiqeen/features/signup/logic/register_state.dart';
+import 'package:sadiqeen/features/register/logic/register_state.dart';
 
 import '../data/models/register_request_model.dart';
 import '../data/repo/register_repo.dart';

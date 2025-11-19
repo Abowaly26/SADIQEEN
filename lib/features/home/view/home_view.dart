@@ -36,16 +36,15 @@ class _HomeViewState extends State<HomeView> {
     if (_isFirstLoad && categories.isNotEmpty) {
       _isFirstLoad = false;
       final firstCategory = categories[0];
-      
-      // استخدام WidgetsBinding لتأخير التنفيذ حتى بعد اكتمال البناء
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           setState(() {
             selectedFilter = firstCategory.id;
           });
-          context
-              .read<SubCategoriesCubit>()
-              .fetchSubCategories(firstCategory.id);
+          context.read<SubCategoriesCubit>().fetchSubCategories(
+            firstCategory.id,
+          );
         }
       });
     }
@@ -136,14 +135,14 @@ class _HomeViewState extends State<HomeView> {
 
                   if (categories.isEmpty) {
                     return const SizedBox(
-                      height: 60,
+                      height: 50,
                       child: Center(child: CircularProgressIndicator()),
                     );
                   }
 
                   return Container(
                     color: Colors.white,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -227,7 +226,7 @@ class _HomeViewState extends State<HomeView> {
                             itemCount: list.length,
                             itemBuilder: (context, index) {
                               final service = list[index];
-                              // تجاهل العناصر اللي مفيهاش بيانات
+
                               if (service.id == null ||
                                   service.name == null ||
                                   service.name!.isEmpty) {

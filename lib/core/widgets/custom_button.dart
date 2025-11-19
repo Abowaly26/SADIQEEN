@@ -5,11 +5,11 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.onPressed,
-    required this.isLoading,
+    this.isLoading,
     required this.text,
   });
   final VoidCallback onPressed;
-  final bool isLoading;
+  final bool? isLoading;
   final String text;
 
   @override
@@ -18,12 +18,12 @@ class CustomButton extends StatelessWidget {
       width: double.infinity,
       height: 60,
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
+        onPressed: isLoading == true ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1A237E),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        child: isLoading
+        child: isLoading == true
             ? const CircularProgressIndicator(color: Colors.white)
             : Text(
                 text,

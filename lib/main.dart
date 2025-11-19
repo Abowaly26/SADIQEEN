@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sadiqeen/core/di/dependency_injection.dart';
 import 'package:sadiqeen/core/routing/app_router.dart';
 import 'package:sadiqeen/core/routing/routes.dart';
+import 'package:sadiqeen/core/theming/app_colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,13 +29,16 @@ class SADIQEEN extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.white,
+      ),
       debugShowCheckedModeBanner: false,
-      title: 'Sadiqeen',
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       onGenerateRoute: router.generateRoute,
-      initialRoute: Routes.loginScreen,
+      initialRoute: Routes.onboardingScreen,
     );
   }
 }

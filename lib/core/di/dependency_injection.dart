@@ -4,8 +4,8 @@ import 'package:sadiqeen/features/home/data/repo/categories_repo.dart';
 import 'package:sadiqeen/features/home/data/repo/sub_categories_repository.dart';
 import 'package:sadiqeen/features/home/logic/categories_cubit/categories_cubit.dart';
 import 'package:sadiqeen/features/home/logic/sub_categories_cubit/sub_categories_cubit.dart';
-import 'package:sadiqeen/features/signup/data/repo/register_repo.dart';
-import 'package:sadiqeen/features/signup/logic/register_cubit.dart';
+import 'package:sadiqeen/features/register/data/repo/register_repo.dart';
+import 'package:sadiqeen/features/register/logic/register_cubit.dart';
 
 import '../../features/login/data/repo/login_repo.dart';
 import '../../features/login/logic/cubit/cubit/login_cubit.dart';

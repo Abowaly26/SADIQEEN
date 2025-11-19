@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sadiqeen/features/register/view/widgets/register_view_body.dart';
 
 import '../../../../core/widgets/custom_snack_bar.dart';
 import '../../logic/register_cubit.dart';
 import '../../logic/register_state.dart';
 
 class RegisterBlocListner extends StatelessWidget {
-  const RegisterBlocListner({super.key, required this.child});
-
-  final Widget child;
+  const RegisterBlocListner({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class RegisterBlocListner extends StatelessWidget {
           },
         );
       },
-      child: child,
+      child: RegisterViewBody(),
     );
   }
 }
