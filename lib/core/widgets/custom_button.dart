@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -8,7 +9,7 @@ class CustomButton extends StatelessWidget {
     this.isLoading,
     required this.text,
   });
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool? isLoading;
   final String text;
 
@@ -25,14 +26,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: isLoading == true
             ? const CircularProgressIndicator(color: Colors.white)
-            : Text(
-                text,
-                style: TextStyle(
-                  color: Colors.yellow,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            : Text(text, style: TextStyles.font18YellowBold),
       ),
     );
     ;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -56,11 +57,9 @@ class FilterButton extends StatelessWidget {
             Flexible(
               child: Text(
                 title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.black : Colors.grey[700],
-                ),
+                style: isSelected
+                    ? TextStyles.font12BlackBold
+                    : TextStyles.font12Gray700SemiBold,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

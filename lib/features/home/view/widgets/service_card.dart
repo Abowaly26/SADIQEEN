@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 
 class ServiceCard extends StatelessWidget {
   final String image;
@@ -12,7 +13,7 @@ class ServiceCard extends StatelessWidget {
     required this.title,
     required this.color,
   });
-  
+
   bool get isSvg => image.toLowerCase().endsWith('.svg');
 
   @override
@@ -38,8 +39,7 @@ class ServiceCard extends StatelessWidget {
               color: color.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: 
-             isSvg
+            child: isSvg
                 ? SvgPicture.network(
                     image,
                     width: 50,
@@ -58,14 +58,7 @@ class ServiceCard extends StatelessWidget {
                   ),
           ),
           const SizedBox(height: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
+          Text(title, style: TextStyles.font16Black87SemiBold),
         ],
       ),
     );

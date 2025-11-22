@@ -20,8 +20,6 @@ abstract class ApiService {
   @GET(ApiConstants.categories)
   Future<CategoriesResponse> getCategories();
 
-  
-
   @GET("categories/{categoryId}/subcategories")
   Future<SubCategoriesResponse> getSubCategories(
     @Path("categoryId") int categoryId,
@@ -29,8 +27,7 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.register)
-  Future<RegisterResponseModel> register(@Body() RegisterRequestModel registerRequestBody);
-
-
-  
+  Future<RegisterResponseModel> register(
+    @Body() RegisterRequestModel registerRequestBody,
+  );
 }

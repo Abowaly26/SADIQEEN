@@ -1,13 +1,14 @@
 import 'app_regex.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AppValidation {
   // التحقق من الاسم
   static String? validateUserName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل اسمك';
+      return 'validation_name_required'.tr();
     }
     if (value.length < 3) {
-      return 'الاسم يجب أن يكون 3 أحرف على الأقل';
+      return 'validation_name_min_length'.tr();
     }
     return null;
   }
@@ -15,10 +16,10 @@ class AppValidation {
   // التحقق من البريد الإلكتروني
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل بريدك الإلكتروني';
+      return 'validation_email_required'.tr();
     }
     if (!AppRegex.isEmailValid(value)) {
-      return 'من فضلك أدخل بريد إلكتروني صحيح';
+      return 'validation_email_invalid'.tr();
     }
     return null;
   }
@@ -26,15 +27,15 @@ class AppValidation {
   // التحقق من كلمة المرور
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل كلمة المرور';
+      return 'validation_password_required'.tr();
     }
     if (value.length < 6) {
-      return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+      return 'validation_password_min_length'.tr();
     }
     if (!AppRegex.hasUpperCase(value) ||
         !AppRegex.hasLowerCase(value) ||
         !AppRegex.hasNumber(value)) {
-      return 'كلمة المرور يجب أن تحتوي على حروف كبيرة وصغيرة وأرقام';
+      return 'validation_password_pattern'.tr();
     }
     return null;
   }
@@ -42,10 +43,10 @@ class AppValidation {
   // التحقق من تأكيد كلمة المرور
   static String? validateConfirmPassword(String? value, String password) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أكد كلمة المرور';
+      return 'validation_confirm_password_required'.tr();
     }
     if (value != password) {
-      return 'كلمة المرور غير متطابقة';
+      return 'validation_password_mismatch'.tr();
     }
     return null;
   }
@@ -53,10 +54,10 @@ class AppValidation {
   // التحقق من رقم الهاتف
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل رقم الهاتف';
+      return 'validation_phone_required'.tr();
     }
     if (!AppRegex.isPhoneNumberValid(value)) {
-      return 'من فضلك أدخل رقم هاتف صحيح';
+      return 'validation_phone_invalid'.tr();
     }
     return null;
   }
@@ -64,10 +65,10 @@ class AppValidation {
   // التحقق من اسم المستخدم
   static String? validateUsername(String? value) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل اسم المستخدم';
+      return 'validation_username_required'.tr();
     }
     if (!AppRegex.isUsernameValid(value)) {
-      return 'اسم المستخدم يجب أن يكون من 3-20 حرف (حروف وأرقام فقط)';
+      return 'validation_username_invalid'.tr();
     }
     return null;
   }
@@ -75,7 +76,7 @@ class AppValidation {
   // التحقق من الحقول الفارغة
   static String? validateNotEmpty(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل $fieldName';
+      return '${'validation_field_required'.tr()} $fieldName';
     }
     return null;
   }
@@ -87,7 +88,7 @@ class AppValidation {
     String fieldName,
   ) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل $fieldName';
+      return '${'validation_field_required'.tr()} $fieldName';
     }
     if (value.length < minLength) {
       return '$fieldName يجب أن يكون $minLength أحرف على الأقل';
@@ -102,7 +103,7 @@ class AppValidation {
     String fieldName,
   ) {
     if (value == null || value.isEmpty) {
-      return 'من فضلك أدخل $fieldName';
+      return '${'validation_field_required'.tr()} $fieldName';
     }
     if (value.length > maxLength) {
       return '$fieldName يجب ألا يتجاوز $maxLength حرف';

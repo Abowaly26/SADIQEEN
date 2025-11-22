@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
@@ -23,7 +24,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       obscureText: widget.obscurePassword,
       textAlign: TextAlign.right,
       decoration: InputDecoration(
-        labelText: 'كلمة المرور',
+        labelText: 'password'.tr(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -43,7 +44,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'الرجاء إدخال كلمة المرور';
+          return 'please_enter_password'.tr();
         }
         return null;
       },

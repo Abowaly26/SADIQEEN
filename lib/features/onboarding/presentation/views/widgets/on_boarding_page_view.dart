@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 import 'package:sadiqeen/features/onboarding/presentation/views/widgets/page_veiw_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../core/utils/images.dart';
 
@@ -15,20 +17,13 @@ class OnBoardingPageView extends StatelessWidget {
       children: [
         PageVeiwItem(
           isVisible: true,
-
           backgroundImage: Assets.vectororange,
           subtitle: SizedBox(
             width: 301,
             child: Text(
-              'نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية',
+              'onboarding_desc_1'.tr(),
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color(0xFF4E5456),
-                fontSize: 13,
-                fontFamily: 'Cairo',
-                fontWeight: FontWeight.w600,
-                height: 1.70,
-              ),
+              style: TextStyles.font13DarkGraySemiBold,
             ),
           ),
           title: Row(
@@ -37,14 +32,9 @@ class OnBoardingPageView extends StatelessWidget {
               Positioned(
                 top: 50,
                 child: Text(
-                  'ابحث وتسوق',
+                  'onboarding_title_1'.tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF0C0D0D) /* Grayscale-950 */,
-                    fontSize: 23,
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyles.font23BlackBold,
                 ),
               ),
             ],
@@ -56,40 +46,20 @@ class OnBoardingPageView extends StatelessWidget {
           subtitle: SizedBox(
             width: 301,
             child: Text(
-              'كل الحرف بين يديك',
+              'onboarding_desc_2'.tr(),
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: const Color(0xFF4E5556) /* Grayscale-500 */,
-                fontSize: 13,
-                fontFamily: 'Cairo',
-                fontWeight: FontWeight.w600,
-                height: 1.70,
-              ),
+              style: TextStyles.font13DarkGraySemiBold,
             ),
-            
           ),
           title: Text.rich(
             TextSpan(
               children: [
                 TextSpan(
                   text: ' مرحبًا بك في',
-                  style: TextStyle(
-                    color: const Color(0xFF0C0D0D),
-                    fontSize: 23,
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyles.font23BlackBold,
                 ),
 
-                TextSpan(
-                  text: ' SADIQEEN',
-                  style: TextStyle(
-                    color: const Color(0xFFF4A91F),
-                    fontSize: 23,
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                TextSpan(text: ' SADIQEEN', style: TextStyles.font23YellowBold),
               ],
             ),
             textAlign: TextAlign.center,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'api_error_model.dart';
 import 'api_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum DataSource {
   NO_CONTENT,
@@ -38,20 +39,20 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String NO_CONTENT = "لا يوجد بيانات";
-  static const String BAD_REQUEST = "طلب غير صحيح";
-  static const String UNAUTHORIZED = "غير مسموح بالدخول، يرجي تسجيل الدخول";
-  static const String FORBIDDEN = "غير مسموح بالدخول";
-  static const String INTERNAL_SERVER_ERROR = "خطأ في السيرفر، حاول لاحقاً";
-  static const String NOT_FOUND = "العنصر غير موجود";
+  static String NO_CONTENT = 'error_no_content'.tr();
+  static String BAD_REQUEST = 'error_bad_request'.tr();
+  static String UNAUTHORIZED = 'error_unauthorized'.tr();
+  static String FORBIDDEN = 'error_forbidden'.tr();
+  static String INTERNAL_SERVER_ERROR = 'error_server'.tr();
+  static String NOT_FOUND = 'error_not_found'.tr();
 
-  static String CONNECT_TIMEOUT = "انتهى وقت الاتصال بالسيرفر";
-  static String CANCEL = "تم إلغاء الطلب";
-  static String RECEIVE_TIMEOUT = "انتهى وقت استلام البيانات";
-  static String SEND_TIMEOUT = "انتهى وقت إرسال البيانات";
-  static String CACHE_ERROR = "خطأ في الذاكرة المؤقتة";
-  static String NO_INTERNET_CONNECTION = "لا يوجد اتصال بالإنترنت";
-  static String DEFAULT = "حدث خطأ غير متوقع";
+  static String CONNECT_TIMEOUT = 'error_timeout'.tr();
+  static String CANCEL = 'error_cancelled'.tr();
+  static String RECEIVE_TIMEOUT = 'error_receive_timeout'.tr();
+  static String SEND_TIMEOUT = 'error_send_timeout'.tr();
+  static String CACHE_ERROR = 'error_cache'.tr();
+  static String NO_INTERNET_CONNECTION = 'error_no_internet'.tr();
+  static String DEFAULT = 'error_unexpected'.tr();
 }
 
 extension DataSourceExtension on DataSource {
@@ -183,7 +184,7 @@ ApiErrorModel _handleError(DioException error) {
         if (error.message!.contains("CERTIFICATE_VERIFY_FAILED") ||
             error.message!.contains("HandshakeException")) {
           return ApiErrorModel(
-            message: 'خطأ في الاتصال الآمن (SSL)',
+            message: 'error_ssl'.tr(),
             type: '',
             status: -1,
             showToast: true,
@@ -191,7 +192,7 @@ ApiErrorModel _handleError(DioException error) {
         }
       }
       return ApiErrorModel(
-        message: error.message ?? 'حدث خطأ غير متوقع',
+        message: error.message ?? 'error_unexpected'.tr(),
         type: '',
         status: -1,
         showToast: true,
@@ -237,7 +238,7 @@ ApiErrorModel _parseServerError(DioException error) {
         return DataSource.INTERNAL_SERVER_ERROR.getFailure();
       case ResponseCode.API_LOGIC_ERROR:
         return ApiErrorModel(
-          message: 'خطأ في البيانات المدخلة',
+          message: 'error_invalid_data'.tr(),
           type: '',
           status: ResponseCode.API_LOGIC_ERROR,
           showToast: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 
 void showCustomSnackBar({
   required BuildContext context,
@@ -30,16 +31,7 @@ void showCustomSnackBar({
           children: [
             Icon(icon ?? Icons.check_circle, color: Colors.white),
             const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            Expanded(child: Text(message, style: TextStyles.font15WhiteMedium)),
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sadiqeen/core/theming/app_colors.dart';
+import 'package:sadiqeen/core/theming/styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -40,7 +40,7 @@ class CustomTextField extends StatelessWidget {
 
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: ColorsManager.lightGray),
+        hintStyle: TextStyles.font14LightGrayRegular,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

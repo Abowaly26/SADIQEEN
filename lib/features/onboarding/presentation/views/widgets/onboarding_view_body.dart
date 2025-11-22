@@ -2,6 +2,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:sadiqeen/core/routing/routes.dart';
 import 'package:sadiqeen/features/onboarding/presentation/views/widgets/on_boarding_page_view.dart';
+import 'package:sadiqeen/core/helpers/shared_pref_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../core/widgets/custom_button.dart';
@@ -58,8 +60,10 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: CustomButton(
-              text: 'ابدأ الان',
-              onPressed: () {
+              text: 'start_now'.tr(),
+              onPressed: () async {
+                // Save onboarding completion status
+                await SharedPrefHelper.setOnboardingCompleted();
                 Navigator.pushReplacementNamed(context, Routes.loginScreen);
               },
             ),

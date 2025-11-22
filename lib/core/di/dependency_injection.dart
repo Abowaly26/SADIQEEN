@@ -30,9 +30,10 @@ Future<void> setupGetit() async {
   getIt.registerLazySingleton<SubCategoriesRepository>(
     () => SubCategoriesRepository(apiService: getIt()),
   );
-  getIt.registerLazySingleton<SubCategoriesCubit>(() => SubCategoriesCubit(getIt()));
+  getIt.registerLazySingleton<SubCategoriesCubit>(
+    () => SubCategoriesCubit(getIt()),
+  );
 
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerLazySingleton<RegisterCubit>(() => RegisterCubit(getIt()));
- 
 }

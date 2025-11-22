@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sadiqeen/features/register/view/widgets/register_view_body.dart';
 
+import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_snack_bar.dart';
 import '../../logic/register_cubit.dart';
 import '../../logic/register_state.dart';
 
-class RegisterBlocListner extends StatelessWidget {
-  const RegisterBlocListner({super.key});
+class RegisterSubmitButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+
+  const RegisterSubmitButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterCubit, RegisterState>(
+    return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         state.whenOrNull(
           success: (data) {
@@ -33,7 +34,18 @@ class RegisterBlocListner extends StatelessWidget {
           },
         );
       },
-      child: RegisterViewBody(),
+      builder: (context, state) {
+        final isLoading = state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
+
+        return CustomButton(
+          isLoading: isLoading,
+          onPressed: isLoading ? null : onPressed,
+          text: 'إنشئ حساب جديد',
+        );
+      },
     );
   }
 }

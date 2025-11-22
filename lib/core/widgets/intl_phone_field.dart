@@ -5,8 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-import '../theming/app_colors.dart';
+import '../theming/styles.dart';
 
 class PhoneField extends StatelessWidget {
   const PhoneField({
@@ -21,7 +22,7 @@ class PhoneField extends StatelessWidget {
   final Function(Country)? onCountryChanged;
   final Function(PhoneNumber)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
- final FutureOr<String?> Function(PhoneNumber?)? validator;
+  final FutureOr<String?> Function(PhoneNumber?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +32,14 @@ class PhoneField extends StatelessWidget {
       validator: validator,
       initialCountryCode: 'SA',
       dropdownIcon: const Icon(Icons.keyboard_arrow_down),
-      style: const TextStyle(fontSize: 16),
+      style: TextStyles.font16WhiteMedium.copyWith(color: Colors.black),
       flagsButtonPadding: const EdgeInsets.symmetric(horizontal: 8),
       textAlign: TextAlign.right,
       inputFormatters: inputFormatters,
       onCountryChanged: onCountryChanged,
       decoration: InputDecoration(
-        hintText: 'رقم الهاتف',
-        hintStyle: TextStyle(color: ColorsManager.lightGray),
+        hintText: 'phone_number'.tr(),
+        hintStyle: TextStyles.font14LightGrayRegular,
 
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
@@ -54,8 +55,6 @@ class PhoneField extends StatelessWidget {
           horizontal: 12,
         ),
       ),
-     
-      
     );
   }
 }
