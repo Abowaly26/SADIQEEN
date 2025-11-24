@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sadiqeen/features/register/logic/register_state.dart';
 import 'package:sadiqeen/features/register/view/widgets/register_name_fields.dart';
 import 'package:sadiqeen/features/register/view/widgets/register_password_fields.dart';
 import 'package:sadiqeen/features/register/view/widgets/register_phone_field.dart';
-import 'package:sadiqeen/features/register/view/widgets/register_submit_button.dart';
 
 import '../../../../core/utils/app_spacing.dart';
+import '../../../../core/utils/app_validation.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_snack_bar.dart';
 import '../../data/models/register_request_model.dart';
 import '../../logic/register_cubit.dart';
 
@@ -50,6 +53,9 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           AppSpacing.height20,
           RegisterPhoneField(
+            validator: (value) {
+              return AppValidation.validatePhoneNumber(value?.number);
+            },
             phoneController: phoneController,
             onCountryChanged: (country) {
               setState(() {
@@ -66,7 +72,40 @@ class _RegisterFormState extends State<RegisterForm> {
             confirmPasswordController: confirmPasswordController,
           ),
           AppSpacing.height40,
-          RegisterSubmitButton(onPressed: _onSubmit),
+          BlocConsumer<RegisterCubit, RegisterState>(
+            listener: (context, state) {
+              state.whenOrNull(
+                success: (data) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: data.message,
+                    backgroundColor: Colors.green,
+                    icon: Icons.check_circle,
+                  );
+                },
+                error: (error) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: error,
+                    backgroundColor: Colors.red,
+                    icon: Icons.error,
+                  );
+                },
+              );
+            },
+            builder: (context, state) {
+              final isLoading = state.maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              );
+
+              return CustomButton(
+                isLoading: isLoading,
+                onPressed: isLoading ? null : _onSubmit,
+                text: 'إنشاء حساب جديد',
+              );
+            },
+          ),
         ],
       ),
     );

@@ -19,7 +19,6 @@ class HomeSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.padding24),
-
       child: TextField(
         controller: searchController,
         enabled: selectedCategoryId != null,

@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.inputFormatters,
+    this.enableInteractiveSelection = true,
   });
 
   final String? icon;
@@ -27,10 +28,12 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final List<TextInputFormatter>? inputFormatters;
+  final bool enableInteractiveSelection;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enableInteractiveSelection: enableInteractiveSelection,
       obscureText: obscureText,
       controller: controller,
       keyboardType: textInputType,

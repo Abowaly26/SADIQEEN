@@ -17,8 +17,8 @@ Future<void> main() async {
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      startLocale: const Locale('en'),
+      fallbackLocale: const Locale('ar'),
+      startLocale: const Locale('ar'),
 
       child: SADIQEEN(
         router: AppRouter(),
@@ -49,9 +49,7 @@ class SADIQEEN extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       onGenerateRoute: router.generateRoute,
-      initialRoute: isOnboardingCompleted
-          ? Routes.loginScreen
-          : Routes.onboardingScreen,
+      initialRoute:Routes.onboardingScreen,
     );
   }
 }

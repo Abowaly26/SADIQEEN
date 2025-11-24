@@ -17,16 +17,21 @@ class PhoneField extends StatelessWidget {
     required this.onChanged,
     this.inputFormatters,
     this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.errorText,
   });
   final TextEditingController phoneController;
   final Function(Country)? onCountryChanged;
   final Function(PhoneNumber)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final FutureOr<String?> Function(PhoneNumber?)? validator;
+  final AutovalidateMode autovalidateMode;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
+      autovalidateMode: autovalidateMode,
       onChanged: onChanged,
       controller: phoneController,
       validator: validator,
@@ -40,6 +45,7 @@ class PhoneField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: 'phone_number'.tr(),
         hintStyle: TextStyles.font14LightGrayRegular,
+        errorText: errorText,
 
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(

@@ -57,6 +57,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           child: ServicesGridView(
             isSearching: _searchController.text.isNotEmpty,
             selectedCategoryId: _selectedCategoryId,
+            onRetry: () {
+              _searchController.clear();
+              if (_selectedCategoryId != null) {
+                context.read<SubCategoriesCubit>().fetchSubCategories(
+                      _selectedCategoryId!,
+                    );
+              }
+            },
           ),
         ),
       ],

@@ -6,9 +6,7 @@ import 'package:sadiqeen/features/login/view/widgets/login_header.dart';
 import 'package:sadiqeen/features/login/view/widgets/new_account_action.dart';
 
 class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key, required this.isLoading});
-
-  final bool isLoading;
+  const LoginViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class LoginViewBody extends StatelessWidget {
         children: [
           LoginHeader(),
           AppSpacing.height20,
-          LoginForm(isLoading: isLoading),
+          LoginForm(),
           AppSpacing.height20,
           CustomCreateNewAccount(),
         ],

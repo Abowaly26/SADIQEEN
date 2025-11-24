@@ -3,18 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:sadiqeen/core/utils/app_spacing.dart';
+import 'package:sadiqeen/core/utils/app_validation.dart';
+import 'package:sadiqeen/core/widgets/custom_snack_bar.dart';
 import 'package:sadiqeen/features/login/view/widgets/password_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/intl_phone_field.dart';
 import '../../data/models/login_request_body.dart';
 import '../../logic/cubit/cubit/login_cubit.dart';
+import '../../logic/cubit/cubit/login_state.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key, required this.isLoading});
-  final bool isLoading;
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -51,19 +54,28 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PhoneField(
-            phoneController: _phoneController,
-            onCountryChanged: (country) {
-              setState(() {
-                _selectedCountryCode = country.code;
-                _selectedDialCode = country.dialCode;
-              });
+          FormField<String>(
+            validator: (value) {
+              return AppValidation.validatePhoneNumber(_phoneController.text);
             },
-            onChanged: (phone) {
-              _phoneController.text = phone.number;
-              setState(() {
-                _selectedDialCode = phone.countryCode;
-              });
+            builder: (state) {
+              return PhoneField(
+                phoneController: _phoneController,
+                errorText: state.errorText,
+                onCountryChanged: (country) {
+                  setState(() {
+                    _selectedCountryCode = country.code;
+                    _selectedDialCode = country.dialCode;
+                  });
+                },
+                onChanged: (phone) {
+                  state.didChange(phone.number);
+                  _phoneController.text = phone.number;
+                  setState(() {
+                    _selectedDialCode = phone.countryCode;
+                  });
+                },
+              );
             },
           ),
 
@@ -89,10 +101,38 @@ class _LoginFormState extends State<LoginForm> {
 
           AppSpacing.height20,
 
-          CustomButton(
-            onPressed: _onSubmit,
-            isLoading: widget.isLoading,
-            text: 'login'.tr(),
+          BlocConsumer<LoginCubit, LoginState>(
+            listener: (context, state) {
+              state.whenOrNull(
+                success: (success) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: success.message,
+                  );
+                  Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                },
+                error: (error) {
+                  showCustomSnackBar(
+                    backgroundColor: Colors.red,
+                    icon: Icons.error,
+                    context: context,
+                    message: error,
+                  );
+                },
+              );
+            },
+            builder: (context, state) {
+              final isLoading = state.maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              );
+
+              return CustomButton(
+                onPressed: isLoading ? null : _onSubmit,
+                isLoading: isLoading,
+                text: 'login'.tr(),
+              );
+            },
           ),
         ],
       ),

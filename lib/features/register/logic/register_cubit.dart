@@ -5,7 +5,6 @@ import 'package:sadiqeen/features/register/logic/register_state.dart';
 import '../data/models/register_request_model.dart';
 import '../data/repo/register_repo.dart';
 
-
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo _registerRepo;
 

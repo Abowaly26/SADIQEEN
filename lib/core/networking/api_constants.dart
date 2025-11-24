@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String apiBaseUrl = 'http://admin.sadiqeen.com/api/';
+  static const String apiBaseUrl = 'https://freelancer-app.net/api/';
   static const String login = 'login';
   static const String categories = 'categories';
   static const String register = 'register';

@@ -36,6 +36,7 @@ class _RegisterPasswordFieldsState extends State<RegisterPasswordFields> {
           validator: AppValidation.validatePassword,
           hint: 'password'.tr(),
           textInputType: TextInputType.visiblePassword,
+          enableInteractiveSelection: false,
           suffixIcon: IconButton(
             icon: Icon(
               obscurePassword ? Icons.visibility_off : Icons.visibility,
@@ -56,6 +57,7 @@ class _RegisterPasswordFieldsState extends State<RegisterPasswordFields> {
           textInputType: TextInputType.visiblePassword,
           controller: widget.confirmPasswordController,
           obscureText: obscureConfirmPassword,
+          enableInteractiveSelection: false,
           hint: 'confirm_password'.tr(),
           validator: (value) {
             return AppValidation.validateConfirmPassword(

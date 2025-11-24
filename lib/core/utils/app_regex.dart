@@ -24,9 +24,12 @@ class AppRegex {
     return RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password);
   }
 
-  // Phone number validation (Egyptian format)
+  // Phone number validation (International format - accepts 7 to 15 digits)
   static bool isPhoneNumberValid(String phoneNumber) {
-    return RegExp(r'^(010|011|012|015)[0-9]{8}$').hasMatch(phoneNumber);
+    // Remove any spaces, dashes, or parentheses
+    String cleanedNumber = phoneNumber.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    // Accept numbers with 7 to 15 digits (international standard)
+    return RegExp(r'^[0-9]{7,15}$').hasMatch(cleanedNumber);
   }
 
   // Username validation (alphanumeric and underscore only)

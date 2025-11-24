@@ -11,11 +11,13 @@ import 'package:easy_localization/easy_localization.dart';
 class ServicesGridView extends StatelessWidget {
   final bool isSearching;
   final int? selectedCategoryId;
+  final VoidCallback? onRetry;
 
   const ServicesGridView({
     super.key,
     required this.isSearching,
     required this.selectedCategoryId,
+    this.onRetry,
   });
 
   @override
@@ -65,7 +67,9 @@ class ServicesGridView extends StatelessWidget {
             error: (message) => ErrorStateWidget(
               errorMessage: message,
               onRetry: () {
-                if (selectedCategoryId != null) {
+                if (onRetry != null) {
+                  onRetry!();
+                } else if (selectedCategoryId != null) {
                   context.read<SubCategoriesCubit>().fetchSubCategories(
                     selectedCategoryId!,
                   );
