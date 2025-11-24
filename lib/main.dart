@@ -49,7 +49,9 @@ class SADIQEEN extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       onGenerateRoute: router.generateRoute,
-      initialRoute:Routes.onboardingScreen,
+      initialRoute: isOnboardingCompleted
+          ? Routes.loginScreen
+          : Routes.onboardingScreen,
     );
   }
 }
