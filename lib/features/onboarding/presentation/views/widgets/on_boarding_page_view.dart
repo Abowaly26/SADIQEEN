@@ -29,13 +29,10 @@ class OnBoardingPageView extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Positioned(
-                top: 50,
-                child: Text(
-                  'onboarding_title_1'.tr(),
-                  textAlign: TextAlign.center,
-                  style: TextStyles.font23BlackBold,
-                ),
+              Text(
+                'onboarding_title_1'.tr(),
+                textAlign: TextAlign.center,
+                style: TextStyles.font23BlackBold,
               ),
             ],
           ),

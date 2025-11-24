@@ -19,6 +19,10 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
   late PageController pageController;
   var currentPage = 0;
 
+  Future<void> _setOnBoarding() async {
+    await SharedPrefHelper.setOnboardingCompleted();
+  }
+
   @override
   void initState() {
     pageController = PageController();
@@ -28,6 +32,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
     });
     // TODO: implement initState
     super.initState();
+    _setOnBoarding();
   }
 
   @override
@@ -63,7 +68,6 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
               text: 'start_now'.tr(),
               onPressed: () async {
                 // Save onboarding completion status
-                await SharedPrefHelper.setOnboardingCompleted();
                 Navigator.pushReplacementNamed(context, Routes.loginScreen);
               },
             ),

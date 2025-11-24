@@ -11,7 +11,6 @@ Future<void> main() async {
   await setupGetit();
 
   // Check if onboarding has been completed
-  final isOnboardingCompleted = await SharedPrefHelper.isOnboardingCompleted();
 
   runApp(
     EasyLocalization(
@@ -20,22 +19,37 @@ Future<void> main() async {
       fallbackLocale: const Locale('ar'),
       startLocale: const Locale('ar'),
 
-      child: SADIQEEN(
-        router: AppRouter(),
-        isOnboardingCompleted: isOnboardingCompleted,
-      ),
+      child: SADIQEEN(router: AppRouter()),
     ),
   );
 }
 
-class SADIQEEN extends StatelessWidget {
-  const SADIQEEN({
-    super.key,
-    required this.router,
-    required this.isOnboardingCompleted,
-  });
+class SADIQEEN extends StatefulWidget {
+  const SADIQEEN({super.key, required this.router});
   final AppRouter router;
-  final bool isOnboardingCompleted;
+
+  @override
+  State<SADIQEEN> createState() => _SADIQEENState();
+}
+
+class _SADIQEENState extends State<SADIQEEN> {
+  String? _initialRoute;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadInitialRoute();
+  }
+
+  Future<void> _loadInitialRoute() async {
+    bool onboardingDone = await SharedPrefHelper.isOnboardingCompleted();
+
+    setState(() {
+      _initialRoute = onboardingDone
+          ? Routes.loginScreen
+          : Routes.onboardingScreen;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +62,8 @@ class SADIQEEN extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      onGenerateRoute: router.generateRoute,
-      initialRoute:Routes.onboardingScreen,
+      onGenerateRoute: widget.router.generateRoute,
+      initialRoute: Routes.onboardingScreen,
     );
   }
 }

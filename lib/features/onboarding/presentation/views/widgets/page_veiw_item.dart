@@ -34,7 +34,6 @@ class PageVeiwItem extends StatelessWidget {
 
               GestureDetector(
                 onTap: () async {
-                  await SharedPrefHelper.setOnboardingCompleted();
                   Navigator.pushReplacementNamed(context, Routes.loginScreen);
                 },
                 child: Visibility(
