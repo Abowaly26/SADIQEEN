@@ -55,5 +55,7 @@
   "error_send_timeout": "Send timeout",
   "error_cache": "Cache error",
   "error_no_internet": "No internet connection",
-  "please_enter_password": "Please enter password"
+  "please_enter_password": "Please enter password",
+  "language": "Language",
+  "switch_language": "Switch app language"
 }

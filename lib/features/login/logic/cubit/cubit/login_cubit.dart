@@ -11,10 +11,12 @@ class LoginCubit extends Cubit<LoginState> {
   final LoginRepo _loginRepol;
 
   void emitLoginState(LoginRequestBody loginRequestBody) async {
+    if (isClosed) return;
     emit(const LoginState.loading());
 
     final response = await _loginRepol.login(loginRequestBody);
 
+    if (isClosed) return;
     response.when(
       success: (loginResponse) {
         emit(LoginState.success(loginResponse));

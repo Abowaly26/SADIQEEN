@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sadiqeen/core/theming/styles.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -32,6 +33,9 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 📐 تحديد محاذاة النص حسب اللغة الحالية
+    final isArabic = context.locale.languageCode == 'ar';
+
     return TextFormField(
       enableInteractiveSelection: enableInteractiveSelection,
       obscureText: obscureText,
@@ -40,6 +44,8 @@ class CustomTextField extends StatelessWidget {
       onSaved: onSaved,
       validator: validator,
       inputFormatters: inputFormatters,
+      // 🔄 محاذاة النص: يمين للعربي، يسار للإنجليزي
+      textAlign: isArabic ? TextAlign.right : TextAlign.left,
 
       decoration: InputDecoration(
         hintText: hint,

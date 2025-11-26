@@ -12,6 +12,7 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
     : super(const SubCategoriesState.initial());
 
   Future<void> fetchSubCategories(int categoryId, {String? search}) async {
+    if (isClosed) return;
     try {
       emit(const SubCategoriesState.loading());
 
@@ -20,6 +21,7 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
         search: search,
       );
 
+      if (isClosed) return;
       result.when(
         success: (subCategories) {
           if (subCategories != null && subCategories.data != null) {
@@ -30,12 +32,12 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
           final errorMessage =
               error.apiErrorModel.message ?? 'error_unexpected'.tr();
           debugPrint('SubCategories Error: $errorMessage');
-          emit(SubCategoriesState.error(errorMessage));
+          if (!isClosed) emit(SubCategoriesState.error(errorMessage));
         },
       );
     } catch (e) {
       debugPrint('Unexpected error in fetchSubCategories: $e');
-      emit(SubCategoriesState.error('error_loading_data'.tr()));
+      if (!isClosed) emit(SubCategoriesState.error('error_loading_data'.tr()));
     }
   }
 }

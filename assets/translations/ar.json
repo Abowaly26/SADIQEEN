@@ -55,5 +55,8 @@
   "error_send_timeout": "انتهى وقت إرسال البيانات",
   "error_cache": "خطأ في الذاكرة المؤقتة",
   "error_no_internet": "لا يوجد اتصال بالإنترنت",
-  "please_enter_password": "الرجاء إدخال كلمة المرور"
+  "please_enter_password": "الرجاء إدخال كلمة المرور",
+  "language": "اللغة",
+  "switch_language": "غيّر لغة التطبيق"
+
 }

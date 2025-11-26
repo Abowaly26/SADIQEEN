@@ -19,10 +19,14 @@ class PasswordTextField extends StatefulWidget {
 class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
+    // 📐 تحديد محاذاة النص حسب اللغة الحالية
+    final isArabic = context.locale.languageCode == 'ar';
+
     return TextFormField(
       controller: widget.passwordController,
       obscureText: widget.obscurePassword,
-      textAlign: TextAlign.right,
+      // 🔄 محاذاة النص: يمين للعربي، يسار للإنجليزي
+      textAlign: isArabic ? TextAlign.right : TextAlign.left,
       decoration: InputDecoration(
         labelText: 'password'.tr(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

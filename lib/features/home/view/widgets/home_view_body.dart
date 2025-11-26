@@ -61,8 +61,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               _searchController.clear();
               if (_selectedCategoryId != null) {
                 context.read<SubCategoriesCubit>().fetchSubCategories(
-                      _selectedCategoryId!,
-                    );
+                  _selectedCategoryId!,
+                );
               }
             },
           ),

@@ -9,6 +9,7 @@ import 'package:sadiqeen/features/onboarding/presentation/views/onboarding_view.
 import 'package:sadiqeen/features/register/logic/register_cubit.dart';
 import 'package:sadiqeen/features/register/view/register_view.dart';
 
+import '../../features/home/view/setting.dart';
 import '../../features/login/logic/cubit/cubit/login_cubit.dart';
 import '../../features/login/view/login_view.dart';
 
@@ -17,9 +18,8 @@ class AppRouter {
     switch (setteing.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) =>
-                getIt<LoginCubit>(), //LoginCubit(LoginRepo(ApiService(Dio())))
+          builder: (context) => BlocProvider.value(
+            value: getIt<LoginCubit>(),
             child: LoginView(),
           ),
         );
@@ -36,11 +36,14 @@ class AppRouter {
 
       case Routes.registerScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<RegisterCubit>(),
+          builder: (context) => BlocProvider.value(
+            value: getIt<RegisterCubit>(),
             child: RegisterView(),
           ),
         );
+
+      case Routes.settingScreen:
+        return MaterialPageRoute(builder: (context) => SettingView());
 
       case Routes.onboardingScreen:
         return MaterialPageRoute(builder: (context) => OnboardingView());

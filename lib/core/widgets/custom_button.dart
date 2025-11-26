@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sadiqeen/core/theming/styles.dart';
 
 class CustomButton extends StatelessWidget {
@@ -29,6 +28,5 @@ class CustomButton extends StatelessWidget {
             : Text(text, style: TextStyles.font18YellowBold),
       ),
     );
-    ;
   }
 }

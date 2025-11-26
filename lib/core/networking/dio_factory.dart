@@ -17,6 +17,7 @@ class DioFactory {
           contentType: 'application/json',
           headers: {
             'Accept': 'application/json',
+            // 🌐 اللغة الافتراضية: عربي
             'lang': 'ar',
             'User-Agent':
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
@@ -28,6 +29,22 @@ class DioFactory {
     }
 
     return _dio!;
+  }
+
+  /// 🔄 تحديث language header في كل طلبات الـ API
+  /// يتم استدعاؤها عند تغيير اللغة من الإعدادات
+  static void updateLanguage(String languageCode) {
+    if (_dio != null) {
+      _dio!.options.headers['lang'] = languageCode;
+      print('🌐 Language header updated to: $languageCode');
+    }
+  }
+
+  /// 🚀 تهيئة اللغة من SharedPreferences عند بدء التطبيق
+  /// يتم استدعاؤها في main.dart
+  static void initializeLanguage(String languageCode) {
+    getDio(); // التأكد من تهيئة Dio
+    updateLanguage(languageCode);
   }
 
   static void _addInterceptors() {

@@ -21,7 +21,7 @@ class RegisterNameFields extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 8),
+            padding: const EdgeInsetsDirectional.only(end: 8),
             child: CustomTextField(
               hint: 'first_name'.tr(),
               textInputType: TextInputType.name,
@@ -37,7 +37,7 @@ class RegisterNameFields extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: const EdgeInsetsDirectional.only(start: 8),
             child: CustomTextField(
               hint: 'last_name'.tr(),
               textInputType: TextInputType.name,

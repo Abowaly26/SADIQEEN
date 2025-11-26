@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:sadiqeen/core/widgets/custom_new_account.dart.dart';
 import 'package:easy_localization/easy_localization.dart';
 

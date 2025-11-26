@@ -11,10 +11,12 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this._registerRepo) : super(const RegisterState.initial());
 
   Future<void> registerUser(RegisterRequestModel registerRequestBody) async {
+    if (isClosed) return;
     emit(const RegisterState.loading());
 
     final response = await _registerRepo.register(registerRequestBody);
 
+    if (isClosed) return;
     response.when(
       success: (registerResponse) {
         emit(RegisterState.success(registerResponse));

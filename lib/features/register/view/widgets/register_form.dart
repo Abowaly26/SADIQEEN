@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sadiqeen/features/register/logic/register_state.dart';
 import 'package:sadiqeen/features/register/view/widgets/register_name_fields.dart';
 import 'package:sadiqeen/features/register/view/widgets/register_password_fields.dart';
@@ -102,7 +103,7 @@ class _RegisterFormState extends State<RegisterForm> {
               return CustomButton(
                 isLoading: isLoading,
                 onPressed: isLoading ? null : _onSubmit,
-                text: 'إنشاء حساب جديد',
+                text: 'create_account'.tr(),
               );
             },
           ),

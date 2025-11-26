@@ -30,6 +30,9 @@ class PhoneField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 📐 تحديد محاذاة النص حسب اللغة الحالية
+    final isArabic = context.locale.languageCode == 'ar';
+
     return IntlPhoneField(
       autovalidateMode: autovalidateMode,
       onChanged: onChanged,
@@ -39,7 +42,8 @@ class PhoneField extends StatelessWidget {
       dropdownIcon: const Icon(Icons.keyboard_arrow_down),
       style: TextStyles.font16WhiteMedium.copyWith(color: Colors.black),
       flagsButtonPadding: const EdgeInsets.symmetric(horizontal: 8),
-      textAlign: TextAlign.right,
+      // 🔄 محاذاة النص: يمين للعربي، يسار للإنجليزي
+      textAlign: isArabic ? TextAlign.right : TextAlign.left,
       inputFormatters: inputFormatters,
       onCountryChanged: onCountryChanged,
       decoration: InputDecoration(

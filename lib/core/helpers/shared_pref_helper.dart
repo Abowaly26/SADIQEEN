@@ -4,24 +4,39 @@ class SharedPrefHelper {
   // Private constructor
   SharedPrefHelper._();
 
+  static late SharedPreferences _prefs;
+
+  /// Initialize SharedPreferences (Call this in main)
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
   // Keys
   static const String _onboardingKey = 'isOnboardingCompleted';
+  static const String _languageKey = 'appLanguage';
 
   /// Checks if the user has completed onboarding
-  static Future<bool> isOnboardingCompleted() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_onboardingKey) ?? false;
+  static bool isOnboardingCompleted() {
+    return _prefs.getBool(_onboardingKey) ?? false;
   }
 
   /// Marks onboarding as completed
   static Future<void> setOnboardingCompleted() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_onboardingKey, true);
+    await _prefs.setBool(_onboardingKey, true);
   }
 
-  /// Clears onboarding status (useful for testing)
+  /// Clears onboarding status
   static Future<void> clearOnboardingStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_onboardingKey);
+    await _prefs.remove(_onboardingKey);
+  }
+
+  /// حفظ اللغة
+  static Future<void> saveLanguage(String langCode) async {
+    await _prefs.setString(_languageKey, langCode);
+  }
+
+  /// جلب اللغة المحفوظة
+  static String? getSavedLanguage() {
+    return _prefs.getString(_languageKey);
   }
 }
